@@ -9,59 +9,96 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let emojis = ["✈️","🛰️","🚛","🚒","🛵", "🩼", "A", "B", "C", "D", "E", "F", "G","!","?","&","|"]
+    @State var emojis = ["✈️","🛰️","🚛","🚒","🛵", "🩼"]
     
-    @State var emojiCount = 10
+    @State var emojiCount = 6
     
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
-                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
+        NavigationStack {
+            VStack(alignment: .center) {
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: widthToFit()))]) {
+                        ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                            CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
+                        }
                     }
                 }
-            }
-            .foregroundColor(/*@START_MENU_TOKEN@*/.purple/*@END_MENU_TOKEN@*/)
-            Spacer()
-            HStack {
-                remove
+                .padding(.horizontal)
+                .foregroundColor(/*@START_MENU_TOKEN@*/.purple/*@END_MENU_TOKEN@*/)
                 Spacer()
-                add
+                HStack {
+                    transportation
+                    Spacer()
+                    sports
+                    Spacer()
+                    food
+                }
+                .font(.largeTitle)
+                .padding(.horizontal)
             }
+            .navigationTitle("Memorize!")
             .font(.largeTitle)
-            .padding(.horizontal)
         }
-        .padding(.horizontal)
-        .navigationTitle("Memorize")
     }
     
-    var remove: some View {
+    var transportation: some View {
         Button {
-            if emojiCount > 1
-            {
-                emojiCount -= 1
-            }
+            randomizeEmojis()
+            emojis = ["✈️", "🚙", "🚎", "🏎️", "🚜","🚐","🚒","🚁","🛸","🛻","🚛","🚑","🚘","🚖","🚔","🚕","🚗","🏍️","🚲","🚠","🚓"].shuffled()
         } label: {
-            Image(systemName: "minus.circle")
+            VStack {
+                Image(systemName: "car.circle")
+                Text("Transportation")
+                    .font(.body)
+            }
         }
     }
-    var add: some View {
-        Button{
-            if emojiCount < emojis.count
-            {
-                emojiCount += 1
-            }
+    
+    var sports: some View {
+        Button {
+            randomizeEmojis()
+            emojis = ["🏀","🏈","🏓","🤿","🏄‍♂️","🏋️","🎣","⛹️‍♂️","♟️","🎮","🎳","🏇","🏌️","🏂","⛷️"].shuffled()
         } label: {
-            Image(systemName: "plus.circle")
+            VStack {
+                Image(systemName: "figure.walk.circle")
+                Text("Sport")
+                    .font(.body)
+            }
         }
     }
+    
+    var food: some View {
+        Button {
+            randomizeEmojis()
+            emojis = ["🥐","🌽","🧄","🍌","🍉","🍇","🍑","🍞","🍔","🥓","🥩","🫔","🍣","🥧","🍿"].shuffled()
+        } label: {
+            VStack {
+                Image(systemName: "fork.knife.circle")
+                Text("Food")
+                    .font(.body)
 
+            }
+        }
+    }
+    
+    func widthToFit() -> CGFloat {
+        if emojiCount < 10
+        {
+            return UIScreen.main.bounds.size.width / 3.5
+        }
+        else {
+            return UIScreen.main.bounds.size.width / 4.7
+        }
+    }
+    
+    func randomizeEmojis()
+    {
+        emojiCount = Int.random(in:8...15)
+    }
 }
 
 struct CardView: View
 {
-    // state is an external var to
     @State var isFaceUp: Bool = false
     var content: String
     
@@ -81,7 +118,7 @@ struct CardView: View
         }
         .onTapGesture {
             isFaceUp = !isFaceUp
-        }
+        }.padding(/*@START_MENU_TOKEN@*/.all, 3.0/*@END_MENU_TOKEN@*/)
     }
 }
 
