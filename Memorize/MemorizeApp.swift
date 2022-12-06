@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct MemorizeApp: App {
-    // EmojiMemoryGame, the ViewModel, is a Class - pointer is constant
     let game = EmojiMemoryGame()
     
     var body: some Scene {

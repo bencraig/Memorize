@@ -9,23 +9,85 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
-    // Type Variable
-    static let emojis = ["✈️", "🚙", "🚎", "🏎️", "🚜","🚐","🚒","🚁","🛸","🛻","🚛","🚑","🚘","🚖","🚔","🚕","🚗","🏍️","🚲","🚠","🚓"]
-    
     // Type Function
-    static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: 4) { pairIndex in
-            emojis[pairIndex] }
+    static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairsOfCards: Int.random(in :5...12)) { pairIndex in
+            if pairIndex < theme.emojis.count {
+                return theme.emojis[pairIndex]
+            }
+            else {
+                return nil
+            }
+        }
+    }
+    
+    static func createRandomTheme() -> Theme
+    {
+        Theme(name: Theme.Name.chooseRandom())
     }
         
-    @Published private var model: MemoryGame<String> = createMemoryGame()
+    @Published private var gameModel: MemoryGame<String> = createMemoryGame(theme: createRandomTheme())
+    @Published private var themeModel : Theme = createRandomTheme()
+    
+    init()
+    {
+        newGame()
+    }
     
     var cards: Array<MemoryGame<String>.Card> {
-        return model.cards
+        return gameModel.cards
     }
     
     //MARK: - Intents
     func choose(_ card: MemoryGame<String>.Card) {
-        model.choose(card)
+        gameModel.choose(card)
+    }
+    
+    func newGame() {
+        themeModel = EmojiMemoryGame.createRandomTheme()
+        gameModel = EmojiMemoryGame.createMemoryGame(theme: themeModel)
+    }
+    
+    func getTitle() -> String {
+        themeModel.name.rawValue
+    }
+    
+    func getScore() -> String {
+        "Score: \(gameModel.getScore())"
+    }
+    
+    func getThemeColor() -> Color {
+        switch themeModel.color
+        {
+        case "Red":
+            return Color.red
+        case "Blue":
+            return Color.blue
+        case "Green":
+            return Color.green
+        case "Yellow":
+            return Color.yellow
+        case "Orange":
+            return Color.orange
+        case "Purple":
+            return Color.purple
+        case "Cyan":
+            return Color.cyan
+        case "Pink":
+            return Color.pink
+        case "Teal":
+            return Color.teal
+        case "Indigo":
+            return Color.indigo
+        case "Brown":
+            return Color.brown
+        case "Black":
+            return Color.black
+        case "Mint":
+            return Color.mint
+        default:
+            return Color.gray
+            
+        }
     }
 }

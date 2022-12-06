@@ -11,86 +11,53 @@ struct ContentView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .center) {
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                        ForEach(viewModel.cards) { card in
-                            CardView(card: card)
-                                .aspectRatio(2/3, contentMode: .fit)
-                                .onTapGesture {
-                                    viewModel.choose(card)
-                                }
-                        }
-                    }
-                }
-                .padding(.horizontal)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.purple/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .center) {
+            HStack {
+                Text(viewModel.getTitle())
                 Spacer()
-                HStack {
-                    transportation
-                    Spacer()
-                    sports
-                    Spacer()
-                    food
+                Text(viewModel.getScore())
+            }.font(.largeTitle)
+             .padding(.horizontal)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: cardWidth()))]) {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card)
+                        .padding(1)
+                        .aspectRatio(2/3, contentMode: .fill)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
-                .font(.largeTitle)
-                .padding(.horizontal)
             }
-            .navigationTitle("Memorize!")
-            .font(.largeTitle)
-        }
+            .padding(.horizontal)
+            .foregroundColor(viewModel.getThemeColor())
+            Spacer()
+            newGame
+        }.foregroundColor(viewModel.getThemeColor())
     }
     
-    var transportation: some View {
+    var newGame: some View {
         Button {
-//            randomizeEmojis()
-//            emojis = ["✈️", "🚙", "🚎", "🏎️", "🚜","🚐","🚒","🚁","🛸","🛻","🚛","🚑","🚘","🚖","🚔","🚕","🚗","🏍️","🚲","🚠","🚓"].shuffled()
+            viewModel.newGame()
         } label: {
             VStack {
-                Image(systemName: "car.circle")
-                Text("Transportation")
+                Image(systemName: "arrow.clockwise.circle.fill")
+                    .font(.largeTitle)
+                Text("New Game")
                     .font(.body)
             }
         }
     }
     
-    var sports: some View {
-        Button {
-//            randomizeEmojis()
-//            emojis = ["🏀","🏈","🏓","🤿","🏄‍♂️","🏋️","🎣","⛹️‍♂️","♟️","🎮","🎳","🏇","🏌️","🏂","⛷️"].shuffled()
-        } label: {
-            VStack {
-                Image(systemName: "figure.walk.circle")
-                Text("Sport")
-                    .font(.body)
-            }
+    func cardWidth() -> Double {
+        let width = UIScreen.main.bounds.width
+        if viewModel.cards.count < 8 {
+            return width / 4.8
+        } else if viewModel.cards.count < 17 {
+            return width / 5.9
+        } else {
+            return width / 6.9
         }
     }
-    
-    var food: some View {
-        Button {
-//            randomizeEmojis()
-//            emojis = ["🥐","🌽","🧄","🍌","🍉","🍇","🍑","🍞","🍔","🥓","🥩","🫔","🍣","🥧","🍿"].shuffled()
-        } label: {
-            VStack {
-                Image(systemName: "fork.knife.circle")
-                Text("Food")
-                    .font(.body)
-
-            }
-        }
-    }
-    
-//    func widthToFit() -> CGFloat {
-//        if emojiCount < 10
-//        {
-//            return UIScreen.main.bounds.size.width / 3.5
-//        }
-//        else {
-//            return UIScreen.main.bounds.size.width / 4.7
-//        }
-//    }
 }
 
 struct CardView: View {
@@ -111,6 +78,7 @@ struct CardView: View {
                 shape.fill()
             }
         }
+        
     }
 }
 
@@ -121,6 +89,5 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
         ContentView(viewModel: game)
             .preferredColorScheme(.light)
-
     }
 }
