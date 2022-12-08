@@ -20,7 +20,7 @@ struct Theme {
     private(set) var color : String
     private(set) var name : Name
     private(set) var emojis : [String]
-    private let colors = ["Red", "Yellow", "Green", "Blue", "Purple", "Orange", "Cyan", "Pink", "Teal", "Indigo", "Brown", "Black", "Mint"]
+    private let colors = ["Red", "Yellow", "Green", "Blue", "Purple", "Orange", "Cyan", "Pink", "Teal", "Indigo", "Brown", "Mint"]
     
     init (name: Name)
     {
