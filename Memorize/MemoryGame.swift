@@ -10,21 +10,12 @@ import Foundation
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     
-    private var indexOfTheOneAndOnlyFaceUpCard: Int?
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {  // computed property
+        get { cards.indices.filter({ cards[$0].isFaceUp }).oneAndOnly }
+        set { cards.indices.forEach { cards[$0].isFaceUp = ($0 == newValue) } }
+    }
     
     private var score: Int = 0
-    
-    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent?) {
-        cards = Array<Card>()
-                
-        for pairIndex in 0..<numberOfPairsOfCards {
-            if let content: CardContent = createCardContent(pairIndex) {
-                cards.append(Card(content: content, id: pairIndex*2))
-                cards.append(Card(content: content, id: pairIndex*2+1))
-            }
-        }
-        cards.shuffle()
-    }
     
     mutating func choose(_ card: Card) {
         if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}),
@@ -48,28 +39,44 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                         cards[chosenIndex].isSeen = true
                     }
                 }
-                indexOfTheOneAndOnlyFaceUpCard = nil
+                cards[chosenIndex].isFaceUp = true
             } else {
-                for index in cards.indices
-                {
-                    cards[index].isFaceUp = false
-                }
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
-            cards[chosenIndex].isFaceUp.toggle()
         }
     }
-
     
+    init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent?) {
+        cards = []
+                
+        for pairIndex in 0..<numberOfPairsOfCards {
+            if let content: CardContent = createCardContent(pairIndex) {
+                cards.append(Card(content: content, id: pairIndex*2))
+                cards.append(Card(content: content, id: pairIndex*2+1))
+            }
+        }
+        cards.shuffle()
+    }
+
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
-        var isSeen: Bool = false
-        var content: CardContent
-        var id: Int
+        var isFaceUp = false
+        var isMatched = false
+        var isSeen = false
+        let content: CardContent
+        let id: Int
     }
     
     func getScore() -> Int {
         return score
+    }
+}
+
+extension Array {
+    var oneAndOnly: Element? {
+        if count == 1 {
+            return first
+        } else {
+            return nil
+        }
     }
 }

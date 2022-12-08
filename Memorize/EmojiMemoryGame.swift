@@ -8,9 +8,10 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
+    typealias Card = MemoryGame<String>.Card
     
     // Type Function
-    static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
+    private static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
         MemoryGame<String>(numberOfPairsOfCards: Int.random(in :5...12)) { pairIndex in
             if pairIndex < theme.emojis.count {
                 return theme.emojis[pairIndex]
@@ -21,25 +22,23 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    static func createRandomTheme() -> Theme
-    {
+    private static func createRandomTheme() -> Theme {
         Theme(name: Theme.Name.chooseRandom())
     }
         
-    @Published private var gameModel: MemoryGame<String> = createMemoryGame(theme: createRandomTheme())
-    @Published private var themeModel : Theme = createRandomTheme()
+    @Published private var gameModel = createMemoryGame(theme: createRandomTheme())
+    @Published private var themeModel = createRandomTheme()
     
-    init()
-    {
+    init() {
         newGame()
     }
     
-    var cards: Array<MemoryGame<String>.Card> {
+    var cards: Array<Card> {
         return gameModel.cards
     }
     
     //MARK: - Intents
-    func choose(_ card: MemoryGame<String>.Card) {
+    func choose(_ card: Card) {
         gameModel.choose(card)
     }
     
@@ -87,7 +86,6 @@ class EmojiMemoryGame: ObservableObject {
             return Color.mint
         default:
             return Color.gray
-            
         }
     }
 }
