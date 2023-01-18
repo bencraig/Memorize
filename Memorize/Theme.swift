@@ -7,41 +7,30 @@
 
 import Foundation
 
-struct Theme {
-    enum Name: String, CaseIterable {
-        case Transportation, Sports, Foods, Flags, Smileys, Animals
-        
-        static func chooseRandom() -> Name
-        {
-            Name.allCases.randomElement()!
+struct Theme: Identifiable, Codable, Hashable {
+    private(set) var id: Int
+    var color : RGBAColor
+    var displayName: String
+    var emojis : [String] {
+        didSet {
+            if oldValue.count == 0 {
+                // only shuffle when adding new default set
+                emojis.shuffle()
+            }
+            if oldValue.count < 2 {
+                let minBound = min(5, emojis.count)
+                numberOfPairs = Int.random(in :minBound...emojis.count)
+            }
         }
     }
-    
-    private(set) var color : String
-    private(set) var name : Name
-    private(set) var emojis : [String]
-    private let colors = ["Red", "Yellow", "Green", "Blue", "Purple", "Orange", "Cyan", "Pink", "Teal", "Indigo", "Brown", "Mint"]
-    
-    init (name: Name)
-    {
-        self.name = name
-        switch name
-        {
-        case Name.Transportation:
-            emojis = ["✈️", "🚙", "🚎", "🏎️", "🚜","🚐","🚒","🚁","🛸","🛻","🚛","🚑","🚘","🚖","🚔","🚕","🚗","🏍️","🚲","🚠","🚓"]
-        case Name.Sports:
-            emojis = ["🏀","🏈","🏓","🤿","🏄‍♂️","🏋️","🎣","⛹️‍♂️","♟️","🎮","🎳","🏇","🏌️","🏂","⛷️"]
-        case Name.Foods:
-            emojis = ["🥐","🌽","🧄","🍌","🍉","🍇","🍑","🍞","🍔","🥓","🥩","🫔","🍣","🥧","🍿"]
-        case Name.Flags:
-            emojis = ["🏳️", "🏴", "🏴‍☠️", "🏁", "🇦🇸", "🇧🇸", "🇦🇶", "🇨🇦", "🇦🇽", "🇮🇴", "🇧🇶", "🇨🇮", "🇫🇮", "🇯🇵", "🇹🇭", "🇺🇾", "🇿🇼"]
-        case Name.Smileys:
-            emojis = ["😀", "😁", "😆", "🥹", "🥳", "🤣", "😌", "😛", "🥸", "😕", "😢", "🥵", "🥶", "😭", "🤩", "😍", "🥲"]
-        case Name.Animals:
-            emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🐨", "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🦑", "🐢", "🦂", "🦖", "🦞", "🐠", "🐬", "🐙", "🐌"]
-        }
-        emojis.shuffle()
+    var numberOfPairs: Int
         
-        color = colors.randomElement() ?? "Red"
+    init (id: Int)
+    {
+        self.id = id
+        self.displayName = ""
+        self.emojis = [String]()
+        self.numberOfPairs = 0
+        self.color = RGBAColor(red:0.5, green:0.5, blue:0.5, alpha:1)
     }
 }

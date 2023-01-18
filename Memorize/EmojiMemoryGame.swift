@@ -12,7 +12,7 @@ class EmojiMemoryGame: ObservableObject {
     
     // Type Function
     private static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
-        MemoryGame<String>(numberOfPairsOfCards: Int.random(in :5...20)) { pairIndex in
+        MemoryGame<String>(numberOfPairsOfCards: theme.numberOfPairs) { pairIndex in
             if pairIndex < theme.emojis.count {
                 return theme.emojis[pairIndex]
             }
@@ -22,21 +22,29 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    private static func createRandomTheme() -> Theme {
-        Theme(name: Theme.Name.chooseRandom())
+    private static func createDefaultTheme() -> Theme {
+        Theme(id: 10000)
     }
         
-    @Published private var gameModel = createMemoryGame(theme: createRandomTheme())
-    @Published private var themeModel = createRandomTheme()
+    @Published private var gameModel = createMemoryGame(theme: createDefaultTheme())
+    @Published private var themeModel = createDefaultTheme()
     
     init() {
+        themeModel = EmojiMemoryGame.createDefaultTheme()
         newGame()
+    }
+    
+    init (theme: Theme) {
+        themeModel = theme
+        gameModel = EmojiMemoryGame.createMemoryGame(theme:theme)
     }
     
     var cards: Array<Card> {
         return gameModel.cards
     }
     
+    var dealt = Set<Int>()
+
     //MARK: - Intents
     func choose(_ card: Card) {
         gameModel.choose(card)
@@ -47,12 +55,11 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func newGame() {
-        themeModel = EmojiMemoryGame.createRandomTheme()
         gameModel = EmojiMemoryGame.createMemoryGame(theme: themeModel)
     }
     
     func getTitle() -> String {
-        themeModel.name.rawValue
+        themeModel.displayName
     }
     
     func getScore() -> String {
@@ -60,36 +67,6 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func getThemeColor() -> Color {
-        switch themeModel.color
-        {
-        case "Red":
-            return Color.red
-        case "Blue":
-            return Color.blue
-        case "Green":
-            return Color.green
-        case "Yellow":
-            return Color.yellow
-        case "Orange":
-            return Color.orange
-        case "Purple":
-            return Color.purple
-        case "Cyan":
-            return Color.cyan
-        case "Pink":
-            return Color.pink
-        case "Teal":
-            return Color.teal
-        case "Indigo":
-            return Color.indigo
-        case "Brown":
-            return Color.brown
-        case "Black":
-            return Color.black
-        case "Mint":
-            return Color.mint
-        default:
-            return Color.gray
-        }
+        return Color(rgbaColor: themeModel.color)
     }
 }

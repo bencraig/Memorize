@@ -17,6 +17,11 @@
 		075F3EC3293F94E700631B16 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F3EC2293F94E700631B16 /* Theme.swift */; };
 		075F3EC5294241F500631B16 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F3EC4294241F500631B16 /* AspectVGrid.swift */; };
 		075F3EC729424E4000631B16 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F3EC629424E4000631B16 /* Pie.swift */; };
+		07FDA6712975B37F001B9BF0 /* ThemeChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDA6702975B37F001B9BF0 /* ThemeChooseView.swift */; };
+		07FDA6732975B3D8001B9BF0 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDA6722975B3D8001B9BF0 /* ThemeStore.swift */; };
+		07FDA67629770C5F001B9BF0 /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDA67529770C5F001B9BF0 /* ThemeEditor.swift */; };
+		07FDA67929771B5A001B9BF0 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDA67729771B5A001B9BF0 /* UtilityExtensions.swift */; };
+		07FDA67C29786475001B9BF0 /* RGBAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FDA67B29786475001B9BF0 /* RGBAColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +36,12 @@
 		075F3EC2293F94E700631B16 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		075F3EC4294241F500631B16 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		075F3EC629424E4000631B16 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		07FDA6702975B37F001B9BF0 /* ThemeChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeChooseView.swift; sourceTree = "<group>"; };
+		07FDA6722975B3D8001B9BF0 /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		07FDA6742975E0C4001B9BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		07FDA67529770C5F001B9BF0 /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
+		07FDA67729771B5A001B9BF0 /* UtilityExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
+		07FDA67B29786475001B9BF0 /* RGBAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,14 +74,20 @@
 		070E315F29380B34004032B7 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
-				075F3EBE293CF50100631B16 /* MemoryGame.swift */,
+				07FDA6742975E0C4001B9BF0 /* Info.plist */,
 				075F3EC2293F94E700631B16 /* Theme.swift */,
+				07FDA6722975B3D8001B9BF0 /* ThemeStore.swift */,
+				07FDA67529770C5F001B9BF0 /* ThemeEditor.swift */,
+				07FDA6702975B37F001B9BF0 /* ThemeChooseView.swift */,
+				075F3EBE293CF50100631B16 /* MemoryGame.swift */,
 				075F3EC0293CF73600631B16 /* EmojiMemoryGame.swift */,
 				070E316229380B34004032B7 /* EmojiMemoryGameView.swift */,
+				070E316029380B34004032B7 /* MemorizeApp.swift */,
+				075F3EC4294241F500631B16 /* AspectVGrid.swift */,
 				0731A2242951FBA800822905 /* Cardify.swift */,
 				075F3EC629424E4000631B16 /* Pie.swift */,
-				075F3EC4294241F500631B16 /* AspectVGrid.swift */,
-				070E316029380B34004032B7 /* MemorizeApp.swift */,
+				07FDA67729771B5A001B9BF0 /* UtilityExtensions.swift */,
+				07FDA67B29786475001B9BF0 /* RGBAColor.swift */,
 				070E316429380B34004032B7 /* Assets.xcassets */,
 				070E316629380B34004032B7 /* Preview Content */,
 			);
@@ -157,10 +174,15 @@
 			files = (
 				075F3EBF293CF50100631B16 /* MemoryGame.swift in Sources */,
 				070E316329380B34004032B7 /* EmojiMemoryGameView.swift in Sources */,
+				07FDA67929771B5A001B9BF0 /* UtilityExtensions.swift in Sources */,
+				07FDA6712975B37F001B9BF0 /* ThemeChooseView.swift in Sources */,
 				0731A2252951FBA800822905 /* Cardify.swift in Sources */,
 				075F3EC5294241F500631B16 /* AspectVGrid.swift in Sources */,
+				07FDA67629770C5F001B9BF0 /* ThemeEditor.swift in Sources */,
+				07FDA67C29786475001B9BF0 /* RGBAColor.swift in Sources */,
 				075F3EC3293F94E700631B16 /* Theme.swift in Sources */,
 				075F3EC729424E4000631B16 /* Pie.swift in Sources */,
+				07FDA6732975B3D8001B9BF0 /* ThemeStore.swift in Sources */,
 				070E316129380B34004032B7 /* MemorizeApp.swift in Sources */,
 				075F3EC1293CF73600631B16 /* EmojiMemoryGame.swift in Sources */,
 			);
@@ -295,7 +317,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Memorize/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -325,7 +347,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Memorize/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Memorize/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
