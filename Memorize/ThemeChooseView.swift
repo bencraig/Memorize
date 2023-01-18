@@ -17,7 +17,7 @@ struct ThemeChooseView: View {
         NavigationStack {
             List {
                 ForEach(store.themes) { theme in
-                    NavigationLink (destination: EmojiMemoryGameView(game:store.themeToGameMap[theme] ?? EmojiMemoryGame())) {
+                    NavigationLink (destination: EmojiMemoryGameView(game:store.themeToGameMap[theme]!)) {
                         VStack (alignment: .leading) {
                             Text(theme.displayName)
                                 .foregroundColor(Color(rgbaColor: theme.color))

@@ -26,14 +26,10 @@ class EmojiMemoryGame: ObservableObject {
         Theme(id: 10000)
     }
         
-    @Published private var gameModel = createMemoryGame(theme: createDefaultTheme())
-    @Published private var themeModel = createDefaultTheme()
+    @Published private var gameModel : MemoryGame<String>
+    @Published private var themeModel : Theme
     
-    init() {
-        themeModel = EmojiMemoryGame.createDefaultTheme()
-        newGame()
-    }
-    
+
     init (theme: Theme) {
         themeModel = theme
         gameModel = EmojiMemoryGame.createMemoryGame(theme:theme)

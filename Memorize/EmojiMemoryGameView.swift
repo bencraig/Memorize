@@ -184,7 +184,8 @@ extension View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = EmojiMemoryGame()
+        let theme = Theme(id: 100)
+        let game = EmojiMemoryGame(theme: theme)
         game.choose(game.cards.first!)
         return EmojiMemoryGameView(game: game)
             .preferredColorScheme(.light)
