@@ -74,6 +74,12 @@ struct EmojiMemoryGameView: View {
         }
         .padding(.horizontal)
         .foregroundColor(game.getThemeColor())
+        .onAppear {
+            dealt = game.dealt
+        }
+        .onDisappear {
+            game.dealt = dealt
+        }
     }
     
     var newGame: some View {
